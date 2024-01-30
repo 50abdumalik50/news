@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ news.description }}</title>
+</head>
+<body>
+    <h1>{{ news.description }}</h1>
+
+    <a href="{% url 'delete_post' post.id %}">Удалить пост</a>
+</body>
+</html>

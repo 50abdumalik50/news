@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create News</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Добавление нового поля для изображения при клике на кнопку
+            $("#add-image").click(function () {
+                var form_idx = $('#id_images-TOTAL_FORMS').val();
+                $('#images-table tbody').append($('#empty-form').html().replace(/__prefix__/g, form_idx));
+                $('#id_images-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+            });
+        });
+    </script>
+</head>
+<body>
+    <form action="{% url 'create_news' %}" method="news" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <table id="images-table">
+            <tbody>
+                {% for form in form.images.forms %}
+                    {{ form.as_table }}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="button" id="add-image">Добавить изображение</button>
+
+        <button type="submit">Создать Пост</button>
+    </form>
+
+    <!-- Шаблон для нового поля изображения -->
+    <div id="empty-form" style="display:none;">
+        {{ form.images.empty_form.as_table }}
+    </div>
+</body>
+</html>
